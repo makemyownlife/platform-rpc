@@ -11,10 +11,12 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <modules>
-
+        <!-- 远程服务框架 -->
         <module>platformrpc-remoting</module>
+        <!-- 远程服务客户端 -->
         <module>platform-client</module>
-
+        <!-- 远程服务例子 -->
+        <module>platformrpc-demo</module>
     </modules>
 
 
