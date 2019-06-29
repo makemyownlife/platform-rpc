@@ -22,6 +22,7 @@
             <groupId>com.alibaba.nacos</groupId>
             <artifactId>nacos-client</artifactId>
             <version>1.0.0</version>
+            <scope>test</scope>
         </dependency>
 
         <!-- 序列号操作 -->
