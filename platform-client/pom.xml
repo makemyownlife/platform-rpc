@@ -17,10 +17,18 @@
 
     <dependencies>
 
+        <!-- 注册中心服务客户端 -->
         <dependency>
             <groupId>com.alibaba.nacos</groupId>
             <artifactId>nacos-client</artifactId>
             <version>1.0.0</version>
+        </dependency>
+
+        <!-- 序列号操作 -->
+        <dependency>
+            <groupId>com.caucho</groupId>
+            <artifactId>hessian</artifactId>
+            <version>4.0.38</version>
         </dependency>
 
     </dependencies>
