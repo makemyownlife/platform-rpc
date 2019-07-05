@@ -6,7 +6,7 @@ import com.courage.platform.client.exception.RemoteClientException;
  * 远程服务客户端
  * Created by zhangyong on 2019/6/29.
  */
-public interface RemoteClient {
+public interface RemoteConsumerClient {
 
     <T> T exe(String serviceId, Object... objects) throws RemoteClientException;
 
