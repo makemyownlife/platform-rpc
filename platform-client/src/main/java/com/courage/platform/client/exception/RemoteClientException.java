@@ -7,5 +7,6 @@ package com.courage.platform.client.exception;
  */
 public class RemoteClientException extends RuntimeException {
 
+    
 
 }

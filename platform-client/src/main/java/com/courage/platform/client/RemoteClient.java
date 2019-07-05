@@ -10,4 +10,6 @@ public interface RemoteClient {
 
     <T> T exe(String serviceId, Object... objects) throws RemoteClientException;
 
+    <T> T exe(String ipAndPort, String serviceId, Object... objects) throws RemoteClientException;
+
 }
