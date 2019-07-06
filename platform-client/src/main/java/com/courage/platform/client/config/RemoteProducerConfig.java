@@ -12,7 +12,6 @@ public class RemoteProducerConfig {
     //生产者线程处理数 默认100
     private Integer threadCount = 100;
 
-
     public Integer getPort() {
         return port;
     }

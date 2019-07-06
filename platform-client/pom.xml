@@ -22,7 +22,6 @@
             <groupId>com.alibaba.nacos</groupId>
             <artifactId>nacos-client</artifactId>
             <version>1.0.0</version>
-            <scope>test</scope>
         </dependency>
 
         <!-- 序列号操作 -->
@@ -30,6 +29,13 @@
             <groupId>com.caucho</groupId>
             <artifactId>hessian</artifactId>
             <version>4.0.38</version>
+        </dependency>
+
+        <!-- 远程通讯框架 -->
+        <dependency>
+            <groupId>com.courage</groupId>
+            <artifactId>platformrpc-remoting</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
 
     </dependencies>

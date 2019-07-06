@@ -1,4 +1,4 @@
-package com.courage.platform.client;
+package com.courage.platform.client.rpc;
 
 import com.courage.platform.client.exception.RemoteClientException;
 
@@ -8,6 +8,6 @@ import com.courage.platform.client.exception.RemoteClientException;
  */
 public interface RemoteConsumerClient {
 
-    <T> T exe(String ipAndPort, String serviceId, Object... objects) throws RemoteClientException;
+    <T> T execute(String ipAndPort, String serviceId, Object... objects) throws RemoteClientException;
 
 }

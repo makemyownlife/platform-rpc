@@ -1,4 +1,4 @@
-package com.courage.platform.client;
+package com.courage.platform.client.rpc;
 
 import com.courage.platform.client.exception.RemoteClientException;
 
