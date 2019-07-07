@@ -16,8 +16,6 @@ public @interface RSAnnotation {
 
     String value();//远程服务ID
 
-    long retryTimes() default 2;//调用失败 重试次数
-
     long readTimeout() default 15;//读取超时时间
 
     String remark() default "";//备注
