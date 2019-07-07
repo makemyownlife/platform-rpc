@@ -42,7 +42,7 @@ public class RemoteProducerClientImpl implements RemoteProducerClient {
 
     private final static int POOL_CORE_SIZE = 100;
 
-    private final static ThreadPoolExecutor remoteRpcThreadPool = new ThreadPoolExecutor(POOL_CORE_SIZE, POOL_CORE_SIZE, 500, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(500000), new ThreadFactory() {
+    private final static ThreadPoolExecutor remoteRpcThreadPool = new ThreadPoolExecutor(POOL_CORE_SIZE, POOL_CORE_SIZE * 2, 500, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(500000), new ThreadFactory() {
         private AtomicInteger threadIndex = new AtomicInteger(0);
 
         @Override
