@@ -9,6 +9,9 @@ public class RemoteProducerConfig {
     //默认监听端口
     private Integer port = 10029;
 
+    //服务端链接删除时间 (1个小时)
+    private int maxIdleTime = 3600;
+
     //生产者线程处理数 默认100
     private Integer threadCount = 100;
 
@@ -26,6 +29,14 @@ public class RemoteProducerConfig {
 
     public void setThreadCount(Integer threadCount) {
         this.threadCount = threadCount;
+    }
+
+    public int getMaxIdleTime() {
+        return maxIdleTime;
+    }
+
+    public void setMaxIdleTime(int maxIdleTime) {
+        this.maxIdleTime = maxIdleTime;
     }
 
 }
