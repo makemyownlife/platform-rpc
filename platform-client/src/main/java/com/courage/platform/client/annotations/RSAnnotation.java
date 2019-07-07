@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RSAnnotation {
 
-    String value();//远程服务ID
+    String value();//远程服务id
 
     long readTimeout() default 15;//读取超时时间
 

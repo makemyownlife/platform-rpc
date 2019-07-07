@@ -7,17 +7,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 心跳处理器
+ * rpc的请求处理器
  * Created by zhangyong on 2019/7/7.
  */
-public class HeartBeatProcessor implements PlatformNettyRequestProcessor {
+public class RpcRequestProcessor implements PlatformNettyRequestProcessor {
 
-    private final static Logger logger = LoggerFactory.getLogger(HeartBeatProcessor.class);
+    private static final Logger logger = LoggerFactory.getLogger(RpcRequestProcessor.class);
 
+    @Override
     public PlatformRemotingCommand processRequest(ChannelHandlerContext ctx, PlatformRemotingCommand request) throws Exception {
         return null;
     }
 
+    @Override
     public boolean rejectRequest() {
         return false;
     }
