@@ -108,9 +108,4 @@ public class RemoteProducerClientImpl implements RemoteProducerClient {
         remoteRpcThreadPool.shutdown();
     }
 
-    public static void main(String[] args) {
-        RemoteProducerClient remoteProducerClient = new RemoteProducerClientImpl(new RemoteProducerConfig());
-        remoteProducerClient.start();
-    }
-
 }
