@@ -32,7 +32,7 @@ public class RemoteProducerClientImpl implements RemoteProducerClient {
 
     private final static Logger logger = LoggerFactory.getLogger(RemoteProducerClientImpl.class);
 
-    //默认11111
+    //默认 10029
     private int listenPort = 10029;
 
     private NodePlatformRemotingServer nodePlatformRemotingServer;
@@ -101,10 +101,7 @@ public class RemoteProducerClientImpl implements RemoteProducerClient {
             //添加命令处理器
             Set<Integer> set = processorTable.keySet();
             for (Integer cmd : set) {
-                this.nodePlatformRemotingServer.registerProcessor(
-                        cmd,
-                        processorTable.get(cmd),
-                        remoteRpcThreadPool);
+                this.nodePlatformRemotingServer.registerProcessor(cmd, processorTable.get(cmd), remoteRpcThreadPool);
             }
         }
         this.nodePlatformRemotingServer.start();
