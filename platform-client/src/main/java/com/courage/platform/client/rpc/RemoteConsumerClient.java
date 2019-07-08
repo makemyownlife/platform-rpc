@@ -8,6 +8,15 @@ import com.courage.platform.client.exception.RemoteClientException;
  */
 public interface RemoteConsumerClient {
 
-    <T> T execute(String ipAndPort, String serviceId, Object... objects) throws RemoteClientException;
+    /**
+     * 消费远程服务
+     * @param addr  127.0.0.1:10029
+     * @param serviceId 类似: shop.submit.info
+     * @param objects   对象
+     * @param <T>       返回对象
+     * @return
+     * @throws RemoteClientException
+     */
+    <T> T execute(String addr, String serviceId, Object... objects) throws RemoteClientException;
 
 }

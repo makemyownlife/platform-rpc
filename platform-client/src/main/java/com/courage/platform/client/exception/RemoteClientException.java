@@ -7,6 +7,14 @@ package com.courage.platform.client.exception;
  */
 public class RemoteClientException extends RuntimeException {
 
-    
+    private static final long serialVersionUID = -5565366231695911316L;
+
+    public RemoteClientException(String message) {
+        super(message);
+    }
+
+    public RemoteClientException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
 }
