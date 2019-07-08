@@ -6,6 +6,11 @@ package com.courage.platform.client.config;
  */
 public class ApplicationConfig {
 
+    public ApplicationConfig(String appName, String appKey) {
+        this.appName = appName;
+        this.appKey = appKey;
+    }
+
     private String appName;
 
     private String appKey;
