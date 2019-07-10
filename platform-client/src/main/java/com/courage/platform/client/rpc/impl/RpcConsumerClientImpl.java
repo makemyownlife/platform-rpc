@@ -47,16 +47,15 @@ public class RpcConsumerClientImpl implements RpcConsumerClient {
             //转化成远程通讯框架所需的命令
             PlatformRemotingCommand platformRemotingCommand = new PlatformRemotingCommand();
             platformRemotingCommand.setBody(rpcRequestCommand.getBody());
-            platformRemotingCommand.getHeadParams().put(
-                    RpcRequestConstants.RPC_REQUEST_COMMAND_HEADER, JSON.toJSONString(rpcRequestCommand));
+            platformRemotingCommand.getHeadParams().put(RpcRequestConstants.RPC_REQUEST_COMMAND_HEADER, JSON.toJSONString(rpcRequestCommand));
 
+            //发送请求到生产者 返回response
             PlatformRemotingCommand response = platformRemotingClient.invokeSync(addr, platformRemotingCommand, 30000L);
-
-            byte[] body = null;
+            byte[] responseBody = null;
             if (response != null) {
                 if (response.getCode() == PlatformRemotingSysResponseCode.SUCCESS) {
-                    body = response.getBody();
-
+                    responseBody = response.getBody();
+                    return (T) Hessian1Utils.decodeObject(responseBody);
                 }
             }
             return null;
@@ -65,6 +64,12 @@ public class RpcConsumerClientImpl implements RpcConsumerClient {
             logger.error(message, e);
             throw new RpcClientException(message, e);
         }
+    }
+
+    public static void main(String[] args) {
+        ApplicationConfig applicationConfig = new ApplicationConfig();
+        RpcConsumerClient rpcConsumerClient = new RpcConsumerClientImpl(applicationConfig);
+        rpcConsumerClient.execute("127.0.0.1:10029", "shop.create.new", "lilin", "张勇");
     }
 
 }
