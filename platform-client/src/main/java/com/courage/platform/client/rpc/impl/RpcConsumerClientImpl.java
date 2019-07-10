@@ -1,7 +1,7 @@
 package com.courage.platform.client.rpc.impl;
 
-import com.courage.platform.client.exception.RemoteClientException;
-import com.courage.platform.client.rpc.RemoteConsumerClient;
+import com.courage.platform.client.exception.RpcClientException;
+import com.courage.platform.client.rpc.RpcConsumerClient;
 import com.courage.platform.client.rpc.protocol.RpcRequestConstants;
 import com.courage.platform.rpc.remoting.PlatformRemotingClient;
 import com.courage.platform.rpc.remoting.netty.codec.PlatformNettyClientConfig;
@@ -15,21 +15,21 @@ import org.slf4j.LoggerFactory;
  * 远程消费者客户端
  * Created by zhangyong on 2019/7/7.
  */
-public class RemoteConsumerClientImpl implements RemoteConsumerClient {
+public class RpcConsumerClientImpl implements RpcConsumerClient {
 
-    private final static Logger logger = LoggerFactory.getLogger(RemoteConsumerClientImpl.class);
+    private final static Logger logger = LoggerFactory.getLogger(RpcConsumerClientImpl.class);
 
     private PlatformNettyClientConfig platformNettyClientConfig;
 
     private PlatformRemotingClient remotingClient;
 
-    public RemoteConsumerClientImpl() {
+    public RpcConsumerClientImpl() {
         this.platformNettyClientConfig = new PlatformNettyClientConfig();
         this.remotingClient = new PlatformNettyRemotingClient(platformNettyClientConfig);
         this.remotingClient.start();
     }
 
-    public <T> T execute(String addr, String serviceId, Object... objects) throws RemoteClientException {
+    public <T> T execute(String addr, String serviceId, Object... objects) throws RpcClientException {
         try {
             PlatformRemotingCommand platformRemotingCommand = new PlatformRemotingCommand();
             platformRemotingCommand.getHeadParams().put(RpcRequestConstants.APP_HEADER, null);
@@ -46,7 +46,7 @@ public class RemoteConsumerClientImpl implements RemoteConsumerClient {
         } catch (Exception e) {
             String message = "execute error addr:" + addr + " serviceId:" + serviceId;
             logger.error(message, e);
-            throw new RemoteClientException(message, e);
+            throw new RpcClientException(message, e);
         }
     }
 

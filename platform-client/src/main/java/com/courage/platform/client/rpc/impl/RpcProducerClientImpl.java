@@ -1,7 +1,7 @@
 package com.courage.platform.client.rpc.impl;
 
-import com.courage.platform.client.config.RemoteProducerConfig;
-import com.courage.platform.client.rpc.RemoteProducerClient;
+import com.courage.platform.client.config.RpcProducerConfig;
+import com.courage.platform.client.rpc.RpcProducerClient;
 import com.courage.platform.client.rpc.processor.RpcHeartBeatProcessor;
 import com.courage.platform.client.rpc.processor.RpcRequestProcessor;
 import com.courage.platform.client.rpc.protocol.CommandEnum;
@@ -28,16 +28,16 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 远程服务生产者
  * Created by zhangyong on 2019/7/7.
  */
-public class RemoteProducerClientImpl implements RemoteProducerClient {
+public class RpcProducerClientImpl implements RpcProducerClient {
 
-    private final static Logger logger = LoggerFactory.getLogger(RemoteProducerClientImpl.class);
+    private final static Logger logger = LoggerFactory.getLogger(RpcProducerClientImpl.class);
 
     //默认 10029
     private int listenPort = 10029;
 
     private NodePlatformRemotingServer nodePlatformRemotingServer;
 
-    private RemoteProducerConfig remoteProducerConfig;
+    private RpcProducerConfig rpcProducerConfig;
 
     private Map<Integer, PlatformNettyRequestProcessor> processorTable = new HashMap<Integer, PlatformNettyRequestProcessor>(4);
 
@@ -53,15 +53,15 @@ public class RemoteProducerClientImpl implements RemoteProducerClient {
     }, new ThreadPoolExecutor.CallerRunsPolicy());
 
 
-    public RemoteProducerClientImpl(RemoteProducerConfig remoteProducerConfig) {
-        this.remoteProducerConfig = remoteProducerConfig;
+    public RpcProducerClientImpl(RpcProducerConfig rpcProducerConfig) {
+        this.rpcProducerConfig = rpcProducerConfig;
     }
 
     public void start() {
         PlatformNettyServerConfig platformNettyServerConfig = new PlatformNettyServerConfig();
         //设置监听端口
-        platformNettyServerConfig.setListenPort(remoteProducerConfig.getPort());
-        platformNettyServerConfig.setServerChannelMaxIdleTimeSeconds(remoteProducerConfig.getMaxIdleTime());
+        platformNettyServerConfig.setListenPort(rpcProducerConfig.getPort());
+        platformNettyServerConfig.setServerChannelMaxIdleTimeSeconds(rpcProducerConfig.getMaxIdleTime());
         this.nodePlatformRemotingServer = new NodePlatformRemotingServer(platformNettyServerConfig) {
             @Override
             public void boot(ServerBootstrap serverBootstrap) {

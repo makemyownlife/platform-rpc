@@ -1,12 +1,12 @@
 package com.courage.platform.client.rpc;
 
-import com.courage.platform.client.exception.RemoteClientException;
+import com.courage.platform.client.exception.RpcClientException;
 
 /**
  * 远程服务客户端(默认调用方法)
  * Created by zhangyong on 2019/6/29.
  */
-public interface RemoteConsumerClient {
+public interface RpcConsumerClient {
 
     /**
      * 消费远程服务
@@ -15,8 +15,8 @@ public interface RemoteConsumerClient {
      * @param objects   对象
      * @param <T>       返回对象
      * @return
-     * @throws RemoteClientException
+     * @throws RpcClientException
      */
-    <T> T execute(String addr, String serviceId, Object... objects) throws RemoteClientException;
+    <T> T execute(String addr, String serviceId, Object... objects) throws RpcClientException;
 
 }
