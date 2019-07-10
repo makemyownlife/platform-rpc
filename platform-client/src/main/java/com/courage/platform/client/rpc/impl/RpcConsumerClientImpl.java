@@ -1,8 +1,12 @@
 package com.courage.platform.client.rpc.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.courage.platform.client.config.ApplicationConfig;
 import com.courage.platform.client.exception.RpcClientException;
 import com.courage.platform.client.rpc.RpcConsumerClient;
+import com.courage.platform.client.rpc.protocol.RpcRequestCommand;
 import com.courage.platform.client.rpc.protocol.RpcRequestConstants;
+import com.courage.platform.client.util.Hessian1Utils;
 import com.courage.platform.rpc.remoting.PlatformRemotingClient;
 import com.courage.platform.rpc.remoting.netty.codec.PlatformNettyClientConfig;
 import com.courage.platform.rpc.remoting.netty.codec.PlatformNettyRemotingClient;
@@ -21,25 +25,38 @@ public class RpcConsumerClientImpl implements RpcConsumerClient {
 
     private PlatformNettyClientConfig platformNettyClientConfig;
 
-    private PlatformRemotingClient remotingClient;
+    private PlatformRemotingClient platformRemotingClient;
 
-    public RpcConsumerClientImpl() {
+    private ApplicationConfig applicationConfig;
+
+    public RpcConsumerClientImpl(ApplicationConfig applicationConfig) {
         this.platformNettyClientConfig = new PlatformNettyClientConfig();
-        this.remotingClient = new PlatformNettyRemotingClient(platformNettyClientConfig);
-        this.remotingClient.start();
+        this.platformRemotingClient = new PlatformNettyRemotingClient(platformNettyClientConfig);
+        this.platformRemotingClient.start();
+        this.applicationConfig = applicationConfig;
     }
 
     public <T> T execute(String addr, String serviceId, Object... objects) throws RpcClientException {
         try {
-            PlatformRemotingCommand platformRemotingCommand = new PlatformRemotingCommand();
-            platformRemotingCommand.getHeadParams().put(RpcRequestConstants.APP_HEADER, null);
-            platformRemotingCommand.setBody(null);
+            //rpc请求命令
+            RpcRequestCommand rpcRequestCommand = new RpcRequestCommand();
+            rpcRequestCommand.setAppName(applicationConfig.getAppName());
+            rpcRequestCommand.setServiceId(serviceId);
+            rpcRequestCommand.setBody(Hessian1Utils.encodeObject(objects));
 
-            PlatformRemotingCommand response = remotingClient.invokeSync(addr, platformRemotingCommand, 15000L);
+            //转化成远程通讯框架所需的命令
+            PlatformRemotingCommand platformRemotingCommand = new PlatformRemotingCommand();
+            platformRemotingCommand.setBody(rpcRequestCommand.getBody());
+            platformRemotingCommand.getHeadParams().put(
+                    RpcRequestConstants.RPC_REQUEST_COMMAND_HEADER, JSON.toJSONString(rpcRequestCommand));
+
+            PlatformRemotingCommand response = platformRemotingClient.invokeSync(addr, platformRemotingCommand, 30000L);
+
             byte[] body = null;
             if (response != null) {
                 if (response.getCode() == PlatformRemotingSysResponseCode.SUCCESS) {
                     body = response.getBody();
+
                 }
             }
             return null;
