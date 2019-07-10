@@ -14,6 +14,8 @@ public class RpcRequestCommand implements Serializable {
 
     private String appName;
 
+    private int objectLength = 1;
+
     private transient byte[] body;
 
     public String getServiceId() {
@@ -38,6 +40,14 @@ public class RpcRequestCommand implements Serializable {
 
     public void setBody(byte[] body) {
         this.body = body;
+    }
+
+    public int getObjectLength() {
+        return objectLength;
+    }
+
+    public void setObjectLength(int objectLength) {
+        this.objectLength = objectLength;
     }
 
 }

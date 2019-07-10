@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.courage.platform.client.config.ApplicationConfig;
 import com.courage.platform.client.exception.RpcClientException;
 import com.courage.platform.client.rpc.RpcConsumerClient;
+import com.courage.platform.client.rpc.protocol.CommandEnum;
 import com.courage.platform.client.rpc.protocol.RpcRequestCommand;
 import com.courage.platform.client.rpc.protocol.RpcRequestConstants;
 import com.courage.platform.client.util.Hessian1Utils;
@@ -42,12 +43,14 @@ public class RpcConsumerClientImpl implements RpcConsumerClient {
             RpcRequestCommand rpcRequestCommand = new RpcRequestCommand();
             rpcRequestCommand.setAppName(applicationConfig.getAppName());
             rpcRequestCommand.setServiceId(serviceId);
+            rpcRequestCommand.setObjectLength(objects.length);
             rpcRequestCommand.setBody(Hessian1Utils.encodeObject(objects));
 
             //转化成远程通讯框架所需的命令
             PlatformRemotingCommand platformRemotingCommand = new PlatformRemotingCommand();
+            platformRemotingCommand.setRequestCmd(CommandEnum.RPC_REQUEST_CMD);
             platformRemotingCommand.setBody(rpcRequestCommand.getBody());
-            platformRemotingCommand.getHeadParams().put(RpcRequestConstants.RPC_REQUEST_COMMAND_HEADER, JSON.toJSONString(rpcRequestCommand));
+            platformRemotingCommand.putHeadParam(RpcRequestConstants.RPC_REQUEST_COMMAND_HEADER, JSON.toJSONString(rpcRequestCommand));
 
             //发送请求到生产者 返回response
             PlatformRemotingCommand response = platformRemotingClient.invokeSync(addr, platformRemotingCommand, 30000L);
