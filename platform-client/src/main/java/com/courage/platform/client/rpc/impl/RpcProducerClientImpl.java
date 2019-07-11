@@ -33,7 +33,7 @@ public class RpcProducerClientImpl implements RpcProducerClient {
     private final static Logger logger = LoggerFactory.getLogger(RpcProducerClientImpl.class);
 
     //默认 10029
-    private int listenPort = 10029;
+    private int listenPort = 0;
 
     private NodePlatformRemotingServer nodePlatformRemotingServer;
 
@@ -54,6 +54,7 @@ public class RpcProducerClientImpl implements RpcProducerClient {
 
     public RpcProducerClientImpl(RpcProducerConfig rpcProducerConfig) {
         this.rpcProducerConfig = rpcProducerConfig;
+        this.listenPort = rpcProducerConfig.getPort();
     }
 
     public void start() {
