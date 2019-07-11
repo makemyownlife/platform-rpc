@@ -2,6 +2,7 @@ package com.courage.platform.client.rpc.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.courage.platform.client.config.ApplicationConfig;
+import com.courage.platform.client.exception.RpcClientConsumerException;
 import com.courage.platform.client.exception.RpcClientException;
 import com.courage.platform.client.rpc.RpcConsumerClient;
 import com.courage.platform.client.rpc.protocol.RpcCommandEnum;
@@ -58,13 +59,15 @@ public class RpcConsumerClientImpl implements RpcConsumerClient {
                 if (response.getCode() == PlatformRemotingSysResponseCode.SUCCESS) {
                     byte[] responseBody = response.getBody();
                     return (T) HessianUtils.decodeObject(responseBody);
+                } else {
+                    throw new RpcClientConsumerException("execute fail addr:" + addr + " serviceId:" + serviceId + " return rpccode:" + response.getCode());
                 }
             }
             return null;
         } catch (Exception e) {
             String message = "execute error addr:" + addr + " serviceId:" + serviceId;
             logger.error(message, e);
-            throw new RpcClientException(message, e);
+            throw new RpcClientConsumerException(message, e);
         }
     }
 
