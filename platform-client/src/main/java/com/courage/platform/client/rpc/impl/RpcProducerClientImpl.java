@@ -52,7 +52,6 @@ public class RpcProducerClientImpl implements RpcProducerClient {
         }
     }, new ThreadPoolExecutor.CallerRunsPolicy());
 
-
     public RpcProducerClientImpl(RpcProducerConfig rpcProducerConfig) {
         this.rpcProducerConfig = rpcProducerConfig;
     }

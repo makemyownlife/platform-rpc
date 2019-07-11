@@ -6,6 +6,8 @@ import com.courage.platform.client.rpc.protocol.RpcRequestConstants;
 import com.courage.platform.client.util.Hessian1Utils;
 import com.courage.platform.rpc.remoting.netty.codec.PlatformNettyRequestProcessor;
 import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingCommand;
+import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingCommandFormat;
+import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingSysResponseCode;
 import io.netty.channel.ChannelHandlerContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,19 +19,24 @@ import org.slf4j.LoggerFactory;
 public class RpcRequestProcessor implements PlatformNettyRequestProcessor {
 
     private static final Logger logger = LoggerFactory.getLogger(RpcRequestProcessor.class);
-
+    
     @Override
     public PlatformRemotingCommand processRequest(ChannelHandlerContext ctx, PlatformRemotingCommand request) throws Exception {
+        PlatformRemotingCommand platformRemotingCommand = new PlatformRemotingCommand();
+        platformRemotingCommand.setFormat(PlatformRemotingCommandFormat.RESPONSE.getCode());
         try {
             String json = (String) request.getHeadParams().get(RpcRequestConstants.RPC_REQUEST_COMMAND_HEADER);
             RpcRequestCommand rpcRequestCommand = JSON.parseObject(json, RpcRequestCommand.class);
             byte[] requestBody = request.getBody();
-            Object[] requestObjects = Hessian1Utils.decodeObject(requestBody, rpcRequestCommand.getObjectLength());
             rpcRequestCommand.setBody(requestBody);
-        } catch (Exception e) {
+            //请求参数
+            Object[] requestObjects = Hessian1Utils.decodeObject(requestBody, rpcRequestCommand.getObjectLength());
+            platformRemotingCommand.setCode(PlatformRemotingSysResponseCode.SUCCESS);
+        } catch (Throwable e) {
             logger.error("processRequest error:", e);
+            platformRemotingCommand.setCode(PlatformRemotingSysResponseCode.SYSTEM_ERROR);
         }
-        return null;
+        return platformRemotingCommand;
     }
 
     @Override
