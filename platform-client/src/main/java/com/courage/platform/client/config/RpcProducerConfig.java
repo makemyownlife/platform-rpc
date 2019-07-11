@@ -12,23 +12,12 @@ public class RpcProducerConfig {
     //服务端链接删除时间 (1个小时)
     private int maxIdleTime = 3600;
 
-    //生产者线程处理数 默认100
-    private Integer threadCount = 100;
-
     public Integer getPort() {
         return port;
     }
 
     public void setPort(Integer port) {
         this.port = port;
-    }
-
-    public Integer getThreadCount() {
-        return threadCount;
-    }
-
-    public void setThreadCount(Integer threadCount) {
-        this.threadCount = threadCount;
     }
 
     public int getMaxIdleTime() {
