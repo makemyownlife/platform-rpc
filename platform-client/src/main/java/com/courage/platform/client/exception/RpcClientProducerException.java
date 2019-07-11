@@ -2,7 +2,7 @@ package com.courage.platform.client.exception;
 
 
 /**
- * 远程rpc生产则异常
+ * 远程rpc生产者异常
  * Created by 张勇 on 2019/7/11
  */
 public class RpcClientProducerException extends RpcClientException {
