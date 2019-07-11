@@ -2,6 +2,7 @@ package com.courage.platform.client.rpc.processor;
 
 import com.courage.platform.rpc.remoting.netty.codec.PlatformNettyRequestProcessor;
 import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingCommand;
+import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingCommandFormat;
 import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingSysResponseCode;
 import io.netty.channel.ChannelHandlerContext;
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ public class RpcHeartBeatProcessor implements PlatformNettyRequestProcessor {
         //直接返回响应码
         PlatformRemotingCommand response = new PlatformRemotingCommand();
         response.setCode(PlatformRemotingSysResponseCode.SUCCESS);
+        response.setFormat(PlatformRemotingCommandFormat.RESPONSE.getCode());
         return response;
     }
 
