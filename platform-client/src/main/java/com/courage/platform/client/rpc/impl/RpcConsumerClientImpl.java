@@ -54,10 +54,9 @@ public class RpcConsumerClientImpl implements RpcConsumerClient {
 
             //发送请求到生产者 返回response
             PlatformRemotingCommand response = platformRemotingClient.invokeSync(addr, platformRemotingCommand, 30000L);
-            byte[] responseBody = null;
             if (response != null) {
                 if (response.getCode() == PlatformRemotingSysResponseCode.SUCCESS) {
-                    responseBody = response.getBody();
+                    byte[] responseBody = response.getBody();
                     return (T) Hessian1Utils.decodeObject(responseBody);
                 }
             }
