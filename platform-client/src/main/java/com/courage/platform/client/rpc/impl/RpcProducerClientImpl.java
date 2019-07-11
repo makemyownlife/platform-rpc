@@ -4,7 +4,7 @@ import com.courage.platform.client.config.RpcProducerConfig;
 import com.courage.platform.client.rpc.RpcProducerClient;
 import com.courage.platform.client.rpc.processor.RpcHeartBeatProcessor;
 import com.courage.platform.client.rpc.processor.RpcRequestProcessor;
-import com.courage.platform.client.rpc.protocol.CommandEnum;
+import com.courage.platform.client.rpc.protocol.RpcCommandEnum;
 import com.courage.platform.rpc.remoting.netty.codec.NodePlatformRemotingServer;
 import com.courage.platform.rpc.remoting.netty.codec.PlatformNettyRequestProcessor;
 import com.courage.platform.rpc.remoting.netty.codec.PlatformNettyServerConfig;
@@ -94,9 +94,9 @@ public class RpcProducerClientImpl implements RpcProducerClient {
         };
         synchronized (this) {
             //心跳命令
-            processorTable.put(CommandEnum.RPC_HEART_BEAT_CMD, new RpcHeartBeatProcessor());
+            processorTable.put(RpcCommandEnum.RPC_HEART_BEAT_CMD, new RpcHeartBeatProcessor());
             //同步调用命令
-            processorTable.put(CommandEnum.RPC_REQUEST_CMD, new RpcRequestProcessor());
+            processorTable.put(RpcCommandEnum.RPC_REQUEST_CMD, new RpcRequestProcessor());
             //添加命令处理器
             Set<Integer> set = processorTable.keySet();
             for (Integer cmd : set) {
