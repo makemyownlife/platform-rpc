@@ -63,7 +63,7 @@ public class RpcConsumerClientImpl implements RpcConsumerClient {
                     throw new RpcClientConsumerException("execute fail addr:" + addr + " serviceId:" + serviceId + " return rpccode:" + response.getCode());
                 }
             }
-            return null;
+            throw new RpcClientConsumerException("execute cant return response may be network problem  addr:" + addr + " serviceId:" + serviceId);
         } catch (Exception e) {
             String message = "execute error addr:" + addr + " serviceId:" + serviceId;
             logger.error(message, e);
