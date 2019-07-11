@@ -7,7 +7,7 @@ import com.courage.platform.client.rpc.RpcConsumerClient;
 import com.courage.platform.client.rpc.protocol.CommandEnum;
 import com.courage.platform.client.rpc.protocol.RpcRequestCommand;
 import com.courage.platform.client.rpc.protocol.RpcRequestConstants;
-import com.courage.platform.client.util.Hessian1Utils;
+import com.courage.platform.client.util.HessianUtils;
 import com.courage.platform.rpc.remoting.PlatformRemotingClient;
 import com.courage.platform.rpc.remoting.netty.codec.PlatformNettyClientConfig;
 import com.courage.platform.rpc.remoting.netty.codec.PlatformNettyRemotingClient;
@@ -44,7 +44,7 @@ public class RpcConsumerClientImpl implements RpcConsumerClient {
             rpcRequestCommand.setAppName(applicationConfig.getAppName());
             rpcRequestCommand.setServiceId(serviceId);
             rpcRequestCommand.setObjectLength(objects.length);
-            rpcRequestCommand.setBody(Hessian1Utils.encodeObject(objects));
+            rpcRequestCommand.setBody(HessianUtils.encodeObject(objects));
 
             //转化成远程通讯框架所需的命令
             PlatformRemotingCommand platformRemotingCommand = new PlatformRemotingCommand();
@@ -57,7 +57,7 @@ public class RpcConsumerClientImpl implements RpcConsumerClient {
             if (response != null) {
                 if (response.getCode() == PlatformRemotingSysResponseCode.SUCCESS) {
                     byte[] responseBody = response.getBody();
-                    return (T) Hessian1Utils.decodeObject(responseBody);
+                    return (T) HessianUtils.decodeObject(responseBody);
                 }
             }
             return null;

@@ -3,7 +3,7 @@ package com.courage.platform.client.rpc.processor;
 import com.alibaba.fastjson.JSON;
 import com.courage.platform.client.rpc.protocol.RpcRequestCommand;
 import com.courage.platform.client.rpc.protocol.RpcRequestConstants;
-import com.courage.platform.client.util.Hessian1Utils;
+import com.courage.platform.client.util.HessianUtils;
 import com.courage.platform.rpc.remoting.netty.codec.PlatformNettyRequestProcessor;
 import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingCommand;
 import com.courage.platform.rpc.remoting.netty.protocol.PlatformRemotingCommandFormat;
@@ -30,7 +30,7 @@ public class RpcRequestProcessor implements PlatformNettyRequestProcessor {
             byte[] requestBody = request.getBody();
             rpcRequestCommand.setBody(requestBody);
             //请求参数
-            Object[] requestObjects = Hessian1Utils.decodeObject(requestBody, rpcRequestCommand.getObjectLength());
+            Object[] requestObjects = HessianUtils.decodeObject(requestBody, rpcRequestCommand.getObjectLength());
 
             platformRemotingCommand.setCode(PlatformRemotingSysResponseCode.SUCCESS);
         } catch (Throwable e) {

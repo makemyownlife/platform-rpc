@@ -13,9 +13,9 @@ import java.io.IOException;
  * 编解码工具类
  * Created by zhangyong on 2019/7/10.
  */
-public class Hessian1Utils {
+public class HessianUtils {
 
-    private static final Logger logger = LoggerFactory.getLogger(Hessian1Utils.class);
+    private static final Logger logger = LoggerFactory.getLogger(HessianUtils.class);
 
     public static byte[] encodeObject(final Object obj) throws IOException {
         ByteArrayOutputStream baos = null;
