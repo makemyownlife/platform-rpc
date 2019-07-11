@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 public class RpcRequestProcessor implements PlatformNettyRequestProcessor {
 
     private static final Logger logger = LoggerFactory.getLogger(RpcRequestProcessor.class);
-    
+
     @Override
     public PlatformRemotingCommand processRequest(ChannelHandlerContext ctx, PlatformRemotingCommand request) throws Exception {
         PlatformRemotingCommand platformRemotingCommand = new PlatformRemotingCommand();
@@ -31,6 +31,7 @@ public class RpcRequestProcessor implements PlatformNettyRequestProcessor {
             rpcRequestCommand.setBody(requestBody);
             //请求参数
             Object[] requestObjects = Hessian1Utils.decodeObject(requestBody, rpcRequestCommand.getObjectLength());
+
             platformRemotingCommand.setCode(PlatformRemotingSysResponseCode.SUCCESS);
         } catch (Throwable e) {
             logger.error("processRequest error:", e);
