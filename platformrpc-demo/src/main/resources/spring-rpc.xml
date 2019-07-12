@@ -10,7 +10,7 @@
         <property name="port" value="10029" />
     </bean>
 
-    <bean id="rpcProducerClient" class="com.courage.platform.client.rpc.impl.RpcProducerClientImpl">
+    <bean id="rpcProducerClient" class="com.courage.platform.client.rpc.impl.RpcProducerClientImpl" init-method="start" destroy-method="shutdown">
         <constructor-arg index="0" ref="rpcProducerConfig" />
     </bean>
 
