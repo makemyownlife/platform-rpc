@@ -36,12 +36,19 @@
             <version>1.0.0</version>
         </dependency>
 
-        <!-- 序列号操作 -->
+        <!-- 序列号操作 start -->
         <dependency>
             <groupId>com.caucho</groupId>
             <artifactId>hessian</artifactId>
             <version>4.0.38</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>hessian-lite</artifactId>
+            <version>3.2.5</version>
+        </dependency>
+        <!-- 序列号操作 end -->
 
         <!-- 远程通讯框架 -->
         <dependency>
