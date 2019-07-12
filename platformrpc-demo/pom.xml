@@ -40,13 +40,6 @@
             <version>1.2.52</version>
         </dependency>
 
-        <!-- 分库分表核心包 -->
-        <dependency>
-            <groupId>io.shardingsphere</groupId>
-            <artifactId>sharding-jdbc-core</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-
         <!-- orm 工具 start-->
         <dependency>
             <groupId>org.mybatis</groupId>
