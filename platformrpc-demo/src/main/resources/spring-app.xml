@@ -4,5 +4,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!-- rpc设计 start -->
+    <import resource="spring-rpc.xml" />
+    <!-- rpc设计 end -->
 
 </beans>

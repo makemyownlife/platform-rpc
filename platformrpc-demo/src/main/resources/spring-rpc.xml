@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 生产者 spring配置 -->
+    <bean id="rpcProducerConfig" class="com.courage.platform.client.config.RpcProducerConfig">
+        <property name="maxIdleTime" value="3600"/>
+        <property name="port" value="10029" />
+    </bean>
+
+    <bean id="rpcProducerClient" class="com.courage.platform.client.rpc.impl.RpcProducerClientImpl">
+        <constructor-arg index="0" ref="rpcProducerConfig" />
+    </bean>
+
+</beans>
