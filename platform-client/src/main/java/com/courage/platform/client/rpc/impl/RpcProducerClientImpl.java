@@ -74,7 +74,7 @@ public class RpcProducerClientImpl implements RpcProducerClient {
                             ChannelFuture sync = serverBootstrap.bind(listenPort);
                             sync.sync();
                             bindSuccess = true;
-                            logger.info("启动Node服务，监听端口:" + listenPort);
+                            logger.info("启动rpc Node服务，监听端口:" + listenPort);
                             InetSocketAddress addr = (InetSocketAddress) sync.channel().localAddress();
                         } catch (Exception e) {
                             if (e instanceof BindException) {
