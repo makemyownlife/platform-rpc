@@ -1,14 +1,13 @@
 package com.courage.platform.client.rpc.domain;
 
 import com.alibaba.fastjson.JSON;
-import com.courage.platform.client.rpc.RpcServiceInvoke;
 
 import java.lang.reflect.Method;
 
 /**
  * 用于存储提供的RPC服务，方便调用
  */
-public class RpcClientInvoke {
+public class RpcServiceInvoke {
     /**
      * 服务id
      */
@@ -26,7 +25,7 @@ public class RpcClientInvoke {
      */
     private Method method;
 
-    public RpcClientInvoke(String serviceId, String remark, Object obj, Method method) {
+    public RpcServiceInvoke(String serviceId, String remark, Object obj, Method method) {
         this.serviceId = serviceId;
         this.remark = remark;
         this.obj = obj;
@@ -57,8 +56,8 @@ public class RpcClientInvoke {
     }
 
     public boolean isSameClassMethod(RpcServiceInvoke invoker) {
-        if (invoker instanceof RpcClientInvoke) {
-            RpcClientInvoke other = (RpcClientInvoke) invoker;
+        if (invoker instanceof RpcServiceInvoke) {
+            RpcServiceInvoke other = (RpcServiceInvoke) invoker;
             //如果对当前类是一致的
             if (other.obj == this.obj || other.obj.getClass().getName().equals(this.obj.getClass().getName())) {
                 if (other.method == this.method || other.method.getName().equals(this.method.getName())) {
