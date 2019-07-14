@@ -1,13 +1,13 @@
 package com.courage.platform.client.rpc.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.courage.platform.client.config.ApplicationConfig;
+import com.courage.platform.client.config.RpcAppConfig;
 import com.courage.platform.client.exception.RpcClientConsumerException;
 import com.courage.platform.client.exception.RpcClientException;
 import com.courage.platform.client.rpc.RpcConsumerClient;
 import com.courage.platform.client.rpc.protocol.RpcCommandEnum;
 import com.courage.platform.client.rpc.protocol.RpcRequestCommand;
-import com.courage.platform.client.rpc.protocol.RpcRequestConstants;
+import com.courage.platform.client.rpc.protocol.RpcCommandConstants;
 import com.courage.platform.client.util.HessianUtils;
 import com.courage.platform.rpc.remoting.PlatformRemotingClient;
 import com.courage.platform.rpc.remoting.netty.codec.PlatformNettyClientConfig;
@@ -29,20 +29,20 @@ public class RpcConsumerClientImpl implements RpcConsumerClient {
 
     private PlatformRemotingClient platformRemotingClient;
 
-    private ApplicationConfig applicationConfig;
+    private RpcAppConfig rpcAppConfig;
 
-    public RpcConsumerClientImpl(ApplicationConfig applicationConfig) {
+    public RpcConsumerClientImpl(RpcAppConfig rpcAppConfig) {
         this.platformNettyClientConfig = new PlatformNettyClientConfig();
         this.platformRemotingClient = new PlatformNettyRemotingClient(platformNettyClientConfig);
         this.platformRemotingClient.start();
-        this.applicationConfig = applicationConfig;
+        this.rpcAppConfig = rpcAppConfig;
     }
 
     public <T> T execute(String addr, String serviceId, Object... objects) throws RpcClientException {
         try {
             //rpc请求命令
             RpcRequestCommand rpcRequestCommand = new RpcRequestCommand();
-            rpcRequestCommand.setAppName(applicationConfig.getAppName());
+            rpcRequestCommand.setAppName(rpcAppConfig.getAppName());
             rpcRequestCommand.setServiceId(serviceId);
             rpcRequestCommand.setObjectLength(objects.length);
             rpcRequestCommand.setBody(HessianUtils.encodeObject(objects));
@@ -51,7 +51,7 @@ public class RpcConsumerClientImpl implements RpcConsumerClient {
             PlatformRemotingCommand platformRemotingCommand = new PlatformRemotingCommand();
             platformRemotingCommand.setRequestCmd(RpcCommandEnum.RPC_REQUEST_CMD);
             platformRemotingCommand.setBody(rpcRequestCommand.getBody());
-            platformRemotingCommand.putHeadParam(RpcRequestConstants.RPC_REQUEST_COMMAND_HEADER, JSON.toJSONString(rpcRequestCommand));
+            platformRemotingCommand.putHeadParam(RpcCommandConstants.RPC_REQUEST_COMMAND_HEADER, JSON.toJSONString(rpcRequestCommand));
 
             //发送请求到生产者 返回response
             PlatformRemotingCommand response = platformRemotingClient.invokeSync(addr, platformRemotingCommand, 30000L);
@@ -72,8 +72,8 @@ public class RpcConsumerClientImpl implements RpcConsumerClient {
     }
 
     public static void main(String[] args) {
-        ApplicationConfig applicationConfig = new ApplicationConfig();
-        RpcConsumerClient rpcConsumerClient = new RpcConsumerClientImpl(applicationConfig);
+        RpcAppConfig rpcAppConfig = new RpcAppConfig();
+        RpcConsumerClient rpcConsumerClient = new RpcConsumerClientImpl(rpcAppConfig);
         rpcConsumerClient.execute("127.0.0.1:10029", "shop.create.new", "lilin", "张勇");
     }
 

@@ -4,7 +4,7 @@ package com.courage.platform.client.config;
  * 应用配置信息
  * Created by zhangyong on 2019/7/7.
  */
-public class ApplicationConfig {
+public class RpcAppConfig {
 
     private String appName;
 
