@@ -1,7 +1,7 @@
 package com.courage.platform.client.util;
 
-import com.caucho.hessian.io.HessianInput;
-import com.caucho.hessian.io.HessianOutput;
+import com.alibaba.com.caucho.hessian.io.Hessian2Input;
+import com.alibaba.com.caucho.hessian.io.Hessian2Output;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,10 +19,10 @@ public class HessianUtils {
 
     public static byte[] encodeObject(final Object obj) throws IOException {
         ByteArrayOutputStream baos = null;
-        HessianOutput output = null;
+        Hessian2Output output = null;
         try {
             baos = new ByteArrayOutputStream();
-            output = new HessianOutput(baos);
+            output = new Hessian2Output(baos);
             output.startCall();
             output.writeObject(obj);
             output.completeCall();
@@ -42,10 +42,10 @@ public class HessianUtils {
 
     public static byte[] encodeObject(final Object[] params) throws IOException {
         ByteArrayOutputStream baos = null;
-        HessianOutput output = null;
+        Hessian2Output output = null;
         try {
             baos = new ByteArrayOutputStream();
-            output = new HessianOutput(baos);
+            output = new Hessian2Output(baos);
             output.startCall();
             for (final Object arg : params) {
                 output.writeObject(arg);
@@ -68,10 +68,10 @@ public class HessianUtils {
     public static Object decodeObject(final byte[] in) throws IOException {
         Object obj = null;
         ByteArrayInputStream bais = null;
-        HessianInput input = null;
+        Hessian2Input input = null;
         try {
             bais = new ByteArrayInputStream(in);
-            input = new HessianInput(bais);
+            input = new Hessian2Input(bais);
             input.startReply();
             obj = input.readObject();
             input.completeReply();
@@ -94,10 +94,10 @@ public class HessianUtils {
     public static Object[] decodeObject(final byte[] in, int count) throws IOException {
         Object[] params = new Object[count];
         ByteArrayInputStream bais = null;
-        HessianInput input = null;
+        Hessian2Input input = null;
         try {
             bais = new ByteArrayInputStream(in);
-            input = new HessianInput(bais);
+            input = new Hessian2Input(bais);
             input.startReply();
             for (int i = 0; i < count; i++) {
                 params[i] = input.readObject();
