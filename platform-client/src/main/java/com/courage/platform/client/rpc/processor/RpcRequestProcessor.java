@@ -37,15 +37,19 @@ public class RpcRequestProcessor implements PlatformNettyRequestProcessor {
             Object[] requestObjects = HessianUtils.decodeObject(requestBody, rpcRequestCommand.getObjectLength());
             String serviceId = rpcRequestCommand.getServiceId();
             RpcServiceInvoker rpcServiceInvoker = RpcServiceResolver.getInvoker(rpcRequestCommand.getServiceId());
+            //不存在服务
             if (rpcServiceInvoker == null) {
                 platformRemotingCommand.setCode(PlatformRemotingSysResponseCode.SYSTEM_ERROR);
                 rpcResponseCommand.setMessage(RpcCommandConstants.RPC_SERVICE_NOT_EXIST);
-            } else {
+            }
+            //存在服务 则直接通过反射来调用
+            else {
                 Object result = rpcServiceInvoker.invoke(serviceId, requestObjects);
                 platformRemotingCommand.setCode(PlatformRemotingSysResponseCode.SUCCESS);
                 platformRemotingCommand.setBody(HessianUtils.encodeObject(result));
             }
-            platformRemotingCommand.putHeadParam(RpcCommandConstants.RPC_RESPONSE_COMMAND_HEADER, rpcResponseCommand);
+            //头部数据 消费者来判断
+            platformRemotingCommand.putHeadParam(RpcCommandConstants.RPC_RESPONSE_COMMAND_HEADER, JSON.toJSONString(rpcResponseCommand));
         } catch (Throwable e) {
             logger.error("processRequest error:", e);
             platformRemotingCommand.setCode(PlatformRemotingSysResponseCode.SYSTEM_ERROR);

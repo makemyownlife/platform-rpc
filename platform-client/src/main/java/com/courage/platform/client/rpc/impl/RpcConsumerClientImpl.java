@@ -5,9 +5,10 @@ import com.courage.platform.client.config.RpcAppConfig;
 import com.courage.platform.client.exception.RpcClientConsumerException;
 import com.courage.platform.client.exception.RpcClientException;
 import com.courage.platform.client.rpc.RpcConsumerClient;
+import com.courage.platform.client.rpc.protocol.RpcCommandConstants;
 import com.courage.platform.client.rpc.protocol.RpcCommandEnum;
 import com.courage.platform.client.rpc.protocol.RpcRequestCommand;
-import com.courage.platform.client.rpc.protocol.RpcCommandConstants;
+import com.courage.platform.client.rpc.protocol.RpcResponseCommand;
 import com.courage.platform.client.util.HessianUtils;
 import com.courage.platform.rpc.remoting.PlatformRemotingClient;
 import com.courage.platform.rpc.remoting.netty.codec.PlatformNettyClientConfig;
@@ -56,11 +57,12 @@ public class RpcConsumerClientImpl implements RpcConsumerClient {
             //发送请求到生产者 返回response
             PlatformRemotingCommand response = platformRemotingClient.invokeSync(addr, platformRemotingCommand, 30000L);
             if (response != null) {
+                RpcResponseCommand rpcResponseCommand = JSON.parseObject((String) response.getHeadParam(RpcCommandConstants.RPC_RESPONSE_COMMAND_HEADER), RpcResponseCommand.class);
                 if (response.getCode() == PlatformRemotingSysResponseCode.SUCCESS) {
                     byte[] responseBody = response.getBody();
                     return (T) HessianUtils.decodeObject(responseBody);
                 } else {
-                    throw new RpcClientConsumerException("execute fail addr:" + addr + " serviceId:" + serviceId + " return rpccode:" + response.getCode());
+                    throw new RpcClientConsumerException("execute fail addr:" + addr + " serviceId:" + serviceId + " return rpccode:" + response.getCode() + " message:" + rpcResponseCommand.getMessage());
                 }
             }
             throw new RpcClientConsumerException("execute cant return response may be network problem  addr:" + addr + " serviceId:" + serviceId);

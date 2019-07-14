@@ -10,8 +10,14 @@
         <property name="port" value="10029" />
     </bean>
 
-    <bean id="rpcProducerClient" class="com.courage.platform.client.rpc.impl.RpcProducerClientImpl" init-method="start" destroy-method="shutdown">
-        <constructor-arg index="0" ref="rpcProducerConfig" />
+    <!-- 应用配置 -->
+    <bean id="applicationConfig" class="com.courage.platform.client.config.RpcAppConfig">
+        <property name="appName" value="platformrpc-demo" />
+        <property name="appKey" value="xx123456"/>
+    </bean>
+
+    <bean id="rpcProducerClient" class="com.courage.platform.client.spring.SpringRpcProducerClient">
+        <constructor-arg index="0" ref="applicationConfig" />
     </bean>
 
 </beans>
