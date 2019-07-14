@@ -1,4 +1,4 @@
-package com.courage.platform.client.rpc.impl;
+package com.courage.platform.client.rpc.domain;
 
 import com.alibaba.fastjson.JSON;
 import com.courage.platform.client.rpc.RpcServiceInvoke;
@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 /**
  * 用于存储提供的RPC服务，方便调用
  */
-public class RpcClientInvokeImpl implements RpcServiceInvoke {
+public class RpcClientInvoke {
     /**
      * 服务id
      */
@@ -26,7 +26,7 @@ public class RpcClientInvokeImpl implements RpcServiceInvoke {
      */
     private Method method;
 
-    public RpcClientInvokeImpl(String serviceId, String remark, Object obj, Method method) {
+    public RpcClientInvoke(String serviceId, String remark, Object obj, Method method) {
         this.serviceId = serviceId;
         this.remark = remark;
         this.obj = obj;
@@ -41,28 +41,24 @@ public class RpcClientInvokeImpl implements RpcServiceInvoke {
      * @return
      * @throws Exception
      */
-    @Override
     public Object invoke(String serviceId, Object[] params) throws Exception {
         Object result = null;
         try {
             result = method.invoke(obj, params);
         } catch (Exception e) {
-            String errorMsg = "调用RSAnnotation服务异常，服务erviceId:" + serviceId + ",备注：" + remark + "," +
-                    "被调用对象：" + obj + ",被调用方法：" + method + ",调用参数" + JSON.toJSONString(params);
+            String errorMsg = "调用RSAnnotation服务异常，服务erviceId:" + serviceId + ",备注：" + remark + "," + "被调用对象：" + obj + ",被调用方法：" + method + ",调用参数" + JSON.toJSONString(params);
             throw new Exception(errorMsg, e);
         }
         return result;
     }
 
-    @Override
     public String getServiceId() {
         return serviceId;
     }
 
-    @Override
     public boolean isSameClassMethod(RpcServiceInvoke invoker) {
-        if (invoker instanceof RpcClientInvokeImpl) {
-            RpcClientInvokeImpl other = (RpcClientInvokeImpl) invoker;
+        if (invoker instanceof RpcClientInvoke) {
+            RpcClientInvoke other = (RpcClientInvoke) invoker;
             //如果对当前类是一致的
             if (other.obj == this.obj || other.obj.getClass().getName().equals(this.obj.getClass().getName())) {
                 if (other.method == this.method || other.method.getName().equals(this.method.getName())) {
@@ -75,11 +71,7 @@ public class RpcClientInvokeImpl implements RpcServiceInvoke {
 
     @Override
     public String toString() {
-        return "RpcClientInvoke{" +
-                "serviceId='" + serviceId + '\'' +
-                ", remark='" + remark + '\'' +
-                ", obj=" + obj +
-                ", method=" + method +
-                '}';
+        return "RpcClientInvoke{" + "serviceId='" + serviceId + '\'' + ", remark='" + remark + '\'' + ", obj=" + obj + ", method=" + method + '}';
     }
+
 }
