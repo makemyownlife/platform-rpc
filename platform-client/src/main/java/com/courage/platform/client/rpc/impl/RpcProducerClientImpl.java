@@ -43,7 +43,7 @@ public class RpcProducerClientImpl implements RpcProducerClient {
 
     private final static int AVAILABLE_PROCESSORS = Runtime.getRuntime().availableProcessors();
 
-    private final static int POOL_CORE_SIZE = AVAILABLE_PROCESSORS > 100 ? AVAILABLE_PROCESSORS : 100;
+    private final static int POOL_CORE_SIZE = AVAILABLE_PROCESSORS > 150 ? AVAILABLE_PROCESSORS : 150;
 
     private final static ThreadPoolExecutor remoteRpcThreadPool = new ThreadPoolExecutor(POOL_CORE_SIZE, POOL_CORE_SIZE * 2, 500, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(500000), new ThreadFactory() {
         private AtomicInteger threadIndex = new AtomicInteger(0);
