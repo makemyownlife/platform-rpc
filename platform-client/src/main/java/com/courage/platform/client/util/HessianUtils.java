@@ -88,7 +88,6 @@ public class HessianUtils {
             bais = new ByteArrayInputStream(in);
             input = new Hessian2Input(bais);
             input.setSerializerFactory(Hessian2SerializerFactory.SERIALIZER_FACTORY);
-            input.startReply();
             obj = input.readObject();
         } catch (final IOException ex) {
             throw ex;
