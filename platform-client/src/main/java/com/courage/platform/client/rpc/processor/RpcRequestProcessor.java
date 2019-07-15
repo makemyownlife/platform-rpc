@@ -54,7 +54,7 @@ public class RpcRequestProcessor implements PlatformNettyRequestProcessor {
             logger.error("processRequest error:", e);
             platformRemotingCommand.setCode(PlatformRemotingSysResponseCode.SYSTEM_ERROR);
             rpcResponseCommand.setMessage(e.getMessage());
-            platformRemotingCommand.putHeadParam(RpcCommandConstants.RPC_RESPONSE_COMMAND_HEADER, rpcResponseCommand);
+            platformRemotingCommand.putHeadParam(RpcCommandConstants.RPC_RESPONSE_COMMAND_HEADER, JSON.toJSONString(rpcResponseCommand));
         }
         return platformRemotingCommand;
     }
