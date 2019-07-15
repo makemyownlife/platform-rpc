@@ -21,7 +21,7 @@ public class ConsumerUnitTest {
         Map map = new HashMap<String, Object>();
         map.put("aa", new BigDecimal("12.21"));
         map.put("bb", 1231);
-        String result = rpcConsumerClient.execute("localhost:10029", "demo.hashmap", map , "love my life");
+        String result = rpcConsumerClient.execute("localhost:10029", "demo.hashmap", map);
         System.out.println(result);
     }
 
