@@ -13,7 +13,7 @@ import java.util.Properties;
 public class NacosUnitTest {
 
     public static void main(String[] args) throws NacosException, InterruptedException {
-        String serverList = "127.0.0.1:8848";
+        String serverList = "192.168.31.131:8848";
 
         Properties properties = new Properties();
         properties.setProperty("serverAddr", serverList);
@@ -27,7 +27,8 @@ public class NacosUnitTest {
         instance.setPort(10229);
         instance.setEphemeral(false);
         namingService.registerInstance("mytest", instance);
-        Thread.sleep(10000);
+
+        Thread.sleep(100000);
     }
 
 }
