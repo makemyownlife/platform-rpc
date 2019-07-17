@@ -19,7 +19,7 @@ public class NacosUnitTest {
         properties.setProperty("serverAddr", serverList);
         properties.setProperty("namespace", "41f0993c-adbb-4832-a0a7-3f01bc804c99");
 
-        NamingService namingService = NamingFactory.createNamingService(serverList);
+        NamingService namingService = NamingFactory.createNamingService(properties);
         namingService.registerInstance("nacos.test.3", "11.11.11.11", 8888, "TEST1");
 
         Instance instance = new Instance();
