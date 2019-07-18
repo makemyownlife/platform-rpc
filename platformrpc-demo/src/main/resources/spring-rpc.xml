@@ -21,11 +21,22 @@
         <property name="namespace" value="41f0993c-adbb-4832-a0a7-3f01bc804c99"/>
     </bean>
 
+    <bean id="regcenterService" class="com.courage.platform.client.regcenter.RegcenterService">
+        <constructor-arg index="0" ref="regcenterConfig"/>
+    </bean>
+
+    <!-- 生产者客户端  -->
     <bean id="rpcProducerClient" class="com.courage.platform.client.spring.SpringRpcProducerClient">
         <!-- 应用配置 -->
         <constructor-arg index="0" ref="applicationConfig"/>
-        <constructor-arg index="1" ref="regcenterConfig"/>
-        <constructor-arg index="2" ref="rpcProducerConfig"/>
+        <constructor-arg index="1" ref="rpcProducerConfig"/>
+        <constructor-arg index="2" ref="regcenterService"/>
+    </bean>
+
+    <!-- 消费者客户端 -->
+    <bean id="rpcConsumerClient" class="com.courage.platform.client.spring.SpringRpcConsumerClient">
+        <constructor-arg index="0" ref="applicationConfig"/>
+        <constructor-arg index="1" ref="regcenterService"/>
     </bean>
 
 </beans>

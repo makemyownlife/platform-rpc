@@ -3,6 +3,7 @@ package com.courage.platform.client.spring;
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.pojo.Instance;
 import com.courage.platform.client.config.RpcAppConfig;
+import com.courage.platform.client.exception.RpcClientConsumerException;
 import com.courage.platform.client.exception.RpcClientException;
 import com.courage.platform.client.regcenter.RegcenterService;
 import com.courage.platform.client.rpc.RpcConsumerClient;
@@ -48,12 +49,7 @@ public class SpringRpcConsumerClient {
             T result = (T) rpcConsumerClient.execute(addr, serviceId, objects);
             return result;
         }
-        return null;
-    }
-
-    //TODO 自己实现
-    public void destroy() throws Exception {
-
+        throw new RpcClientConsumerException("cant find serviceName:" + serviceName + " one healthy instance");
     }
 
 }
