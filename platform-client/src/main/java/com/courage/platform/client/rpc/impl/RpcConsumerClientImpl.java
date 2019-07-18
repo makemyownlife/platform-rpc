@@ -1,6 +1,7 @@
 package com.courage.platform.client.rpc.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.nacos.api.naming.pojo.Instance;
 import com.courage.platform.client.config.RpcAppConfig;
 import com.courage.platform.client.exception.RpcClientConsumerException;
 import com.courage.platform.client.exception.RpcClientException;

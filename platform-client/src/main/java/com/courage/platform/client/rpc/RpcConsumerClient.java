@@ -7,7 +7,6 @@ import com.courage.platform.client.exception.RpcClientException;
  * Created by zhangyong on 2019/6/29.
  */
 public interface RpcConsumerClient {
-
     /**
      * 消费远程服务
      * @param addr  127.0.0.1:10029

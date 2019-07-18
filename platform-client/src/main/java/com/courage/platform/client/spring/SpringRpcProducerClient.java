@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.nacos.api.exception.NacosException;
 import com.courage.platform.client.config.RpcAppConfig;
 import com.courage.platform.client.config.RpcProducerConfig;
-import com.courage.platform.client.config.RpcRegserverConfig;
 import com.courage.platform.client.regcenter.RegcenterService;
 import com.courage.platform.client.rpc.RpcProducerClient;
 import com.courage.platform.client.rpc.RpcServiceResolver;
@@ -33,8 +32,6 @@ public class SpringRpcProducerClient implements ApplicationContextAware, Applica
 
     private RpcAppConfig rpcAppConfig;
 
-    private RpcRegserverConfig rpcRegserverConfig;
-
     private RpcProducerConfig rpcProducerConfig;
 
     private ApplicationContext applicationContext;
@@ -43,12 +40,11 @@ public class SpringRpcProducerClient implements ApplicationContextAware, Applica
 
     private RegcenterService regcenterService;
 
-    public SpringRpcProducerClient(RpcAppConfig rpcAppConfig, RpcRegserverConfig rpcRegserverConfig, RpcProducerConfig rpcProducerConfig) throws NacosException {
+    public SpringRpcProducerClient(RpcAppConfig rpcAppConfig, RpcProducerConfig rpcProducerConfig, RegcenterService regcenterService) throws NacosException {
         this.rpcAppConfig = rpcAppConfig;
-        this.rpcRegserverConfig = rpcRegserverConfig;
         this.rpcProducerConfig = rpcProducerConfig;
+        this.regcenterService = regcenterService;
         logger.info("current appconfig:" + JSON.toJSONString(rpcAppConfig));
-        this.regcenterService = new RegcenterService(rpcRegserverConfig);
     }
 
     @Override
