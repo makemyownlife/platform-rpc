@@ -16,6 +16,7 @@ public class NacosUnitTest {
         String serverList = "192.168.31.131:8848";
 
         Properties properties = new Properties();
+        //nacos需要部署在内网机房里面,并且各个环境是隔离的
         properties.setProperty("serverAddr", serverList);
         properties.setProperty("namespace", "41f0993c-adbb-4832-a0a7-3f01bc804c99");
 

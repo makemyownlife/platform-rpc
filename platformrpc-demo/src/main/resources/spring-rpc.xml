@@ -17,7 +17,9 @@
     </bean>
 
     <bean id="rpcProducerClient" class="com.courage.platform.client.spring.SpringRpcProducerClient">
+        <!-- 应用配置 -->
         <constructor-arg index="0" ref="applicationConfig" />
+        <constructor-arg index="1" ref="rpcProducerConfig" />
     </bean>
 
 </beans>

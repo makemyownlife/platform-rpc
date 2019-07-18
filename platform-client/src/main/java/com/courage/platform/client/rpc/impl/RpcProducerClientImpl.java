@@ -114,4 +114,9 @@ public class RpcProducerClientImpl implements RpcProducerClient {
         remoteRpcThreadPool.shutdown();
     }
 
+    @Override
+    public int localListenPort() {
+        return this.listenPort;
+    }
+
 }
