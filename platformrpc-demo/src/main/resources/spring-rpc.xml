@@ -6,7 +6,8 @@
 
     <!-- 生产者 spring配置 -->
     <bean id="rpcProducerConfig" class="com.courage.platform.client.config.RpcProducerConfig">
-        <property name="maxIdleTime" value="3600"/>
+        <!-- 最大空闲时间 -->
+        <property name="maxIdleTime" value="10"/>
         <property name="port" value="10029"/>
     </bean>
 
