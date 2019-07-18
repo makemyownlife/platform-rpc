@@ -51,14 +51,18 @@ public class RpcChannelManager {
             }
             Iterator<Map.Entry<Long, RpcChannel>> entries = channelMap.entrySet().iterator();
             while (entries.hasNext()) {
+                RpcChannel rpcChannel = null;
                 try {
                     Map.Entry<Long, RpcChannel> entry = entries.next();
-                    RpcChannel rpcChannel = entry.getValue();
+                    rpcChannel = entry.getValue();
                     PlatformRemotingCommand heartBeatRemotingCommand = new PlatformRemotingCommand();
                     heartBeatRemotingCommand.setRequestCmd(RpcCommandEnum.RPC_HEART_BEAT_CMD);
                     rpcChannel.getChannel().writeAndFlush(heartBeatRemotingCommand);
                 } catch (Throwable e) {
                     logger.error("writeAndFlush error:", e);
+                } finally {
+                    //设置最后的心跳时间
+                    rpcChannel.setLastTriggerTime(System.currentTimeMillis());
                 }
             }
         }
