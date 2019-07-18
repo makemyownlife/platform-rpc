@@ -1,7 +1,6 @@
 package com.courage.platform.client.rpc.impl;
 
 import com.courage.platform.client.config.RpcProducerConfig;
-import com.courage.platform.client.rpc.RpcChannelListener;
 import com.courage.platform.client.rpc.RpcProducerClient;
 import com.courage.platform.client.rpc.processor.RpcHeartBeatProcessor;
 import com.courage.platform.client.rpc.processor.RpcRequestProcessor;
@@ -65,7 +64,7 @@ public class RpcProducerClientImpl implements RpcProducerClient {
         //设置监听端口
         platformNettyServerConfig.setListenPort(rpcProducerConfig.getPort());
         platformNettyServerConfig.setServerChannelMaxIdleTimeSeconds(rpcProducerConfig.getMaxIdleTime());
-        this.nodePlatformRemotingServer = new NodePlatformRemotingServer(platformNettyServerConfig, new RpcChannelListener()) {
+        this.nodePlatformRemotingServer = new NodePlatformRemotingServer(platformNettyServerConfig) {
             @Override
             public void boot(ServerBootstrap serverBootstrap) {
                 try {

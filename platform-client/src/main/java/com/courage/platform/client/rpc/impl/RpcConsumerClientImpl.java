@@ -5,6 +5,7 @@ import com.alibaba.nacos.api.naming.pojo.Instance;
 import com.courage.platform.client.config.RpcAppConfig;
 import com.courage.platform.client.exception.RpcClientConsumerException;
 import com.courage.platform.client.exception.RpcClientException;
+import com.courage.platform.client.rpc.RpcChannelListener;
 import com.courage.platform.client.rpc.RpcConsumerClient;
 import com.courage.platform.client.rpc.protocol.RpcCommandConstants;
 import com.courage.platform.client.rpc.protocol.RpcCommandEnum;
@@ -35,7 +36,8 @@ public class RpcConsumerClientImpl implements RpcConsumerClient {
 
     public RpcConsumerClientImpl(RpcAppConfig rpcAppConfig) {
         this.platformNettyClientConfig = new PlatformNettyClientConfig();
-        this.platformRemotingClient = new PlatformNettyRemotingClient(platformNettyClientConfig);
+        platformNettyClientConfig.setClientChannelMaxIdleTimeSeconds(3600);
+        this.platformRemotingClient = new PlatformNettyRemotingClient(platformNettyClientConfig ,new RpcChannelListener());
         this.platformRemotingClient.start();
         this.rpcAppConfig = rpcAppConfig;
     }
