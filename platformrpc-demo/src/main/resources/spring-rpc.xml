@@ -7,19 +7,25 @@
     <!-- 生产者 spring配置 -->
     <bean id="rpcProducerConfig" class="com.courage.platform.client.config.RpcProducerConfig">
         <property name="maxIdleTime" value="3600"/>
-        <property name="port" value="10029" />
+        <property name="port" value="10029"/>
     </bean>
 
     <!-- 应用配置 -->
     <bean id="applicationConfig" class="com.courage.platform.client.config.RpcAppConfig">
-        <property name="appName" value="platformrpc-demo" />
+        <property name="appName" value="platformrpc-demo"/>
         <property name="appKey" value="xx123456"/>
+    </bean>
+
+    <bean id="regcenterConfig" class="com.courage.platform.client.config.RpcRegserverConfig">
+        <property name="address" value="192.168.31.131:8848"/>
+        <property name="namespace" value="41f0993c-adbb-4832-a0a7-3f01bc804c99"/>
     </bean>
 
     <bean id="rpcProducerClient" class="com.courage.platform.client.spring.SpringRpcProducerClient">
         <!-- 应用配置 -->
-        <constructor-arg index="0" ref="applicationConfig" />
-        <constructor-arg index="1" ref="rpcProducerConfig" />
+        <constructor-arg index="0" ref="applicationConfig"/>
+        <constructor-arg index="1" ref="regcenterConfig"/>
+        <constructor-arg index="2" ref="rpcProducerConfig"/>
     </bean>
 
 </beans>

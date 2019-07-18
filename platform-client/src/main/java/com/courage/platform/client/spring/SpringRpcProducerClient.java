@@ -1,11 +1,15 @@
 package com.courage.platform.client.spring;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.nacos.api.exception.NacosException;
 import com.courage.platform.client.config.RpcAppConfig;
 import com.courage.platform.client.config.RpcProducerConfig;
+import com.courage.platform.client.config.RpcRegserverConfig;
+import com.courage.platform.client.regcenter.RegcenterService;
 import com.courage.platform.client.rpc.RpcProducerClient;
 import com.courage.platform.client.rpc.RpcServiceResolver;
 import com.courage.platform.client.rpc.impl.RpcProducerClientImpl;
+import com.courage.platform.client.util.IpUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -29,16 +33,22 @@ public class SpringRpcProducerClient implements ApplicationContextAware, Applica
 
     private RpcAppConfig rpcAppConfig;
 
+    private RpcRegserverConfig rpcRegserverConfig;
+
     private RpcProducerConfig rpcProducerConfig;
 
     private ApplicationContext applicationContext;
 
     private RpcProducerClient rpcProducerClient;
 
-    public SpringRpcProducerClient(RpcAppConfig rpcAppConfig, RpcProducerConfig rpcProducerConfig) {
+    private RegcenterService regcenterService;
+
+    public SpringRpcProducerClient(RpcAppConfig rpcAppConfig, RpcRegserverConfig rpcRegserverConfig, RpcProducerConfig rpcProducerConfig) throws NacosException {
         this.rpcAppConfig = rpcAppConfig;
+        this.rpcRegserverConfig = rpcRegserverConfig;
         this.rpcProducerConfig = rpcProducerConfig;
         logger.info("current appconfig:" + JSON.toJSONString(rpcAppConfig));
+        this.regcenterService = new RegcenterService(rpcRegserverConfig);
     }
 
     @Override
@@ -60,13 +70,15 @@ public class SpringRpcProducerClient implements ApplicationContextAware, Applica
             this.rpcProducerClient = new RpcProducerClientImpl(rpcProducerConfig);
             this.rpcProducerClient.start();
             //TODO 添加到注册中心
-            logger.info("begin to add instance to nacos server");
+            logger.info("begin to instance to nacos server");
             //服务名
             String appName = rpcAppConfig.getAppName();
             //监听端口呢
             int listenPort = rpcProducerClient.localListenPort();
             //当前的本地ip
-
+            String ip = IpUtils.LOCAL_IP;
+            logger.info("应用名:" + appName + " listenPort:" + listenPort + " 本地ip:" + ip);
+            regcenterService.registerInstance(appName, ip, listenPort);
         } catch (Exception e) {
             logger.error("启动rpc生产者服务失败!", e);
         }

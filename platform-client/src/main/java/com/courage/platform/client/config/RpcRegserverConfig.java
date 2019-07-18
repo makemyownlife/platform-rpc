@@ -10,11 +10,6 @@ public class RpcRegserverConfig {
 
     private String namespace;
 
-    public RpcRegserverConfig(String address, String namespace) {
-        this.address = address;
-        this.namespace = namespace;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -30,4 +25,5 @@ public class RpcRegserverConfig {
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
+
 }
