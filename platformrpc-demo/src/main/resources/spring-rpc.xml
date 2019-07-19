@@ -22,7 +22,7 @@
         <property name="namespace" value="41f0993c-adbb-4832-a0a7-3f01bc804c99"/>
     </bean>
 
-    <bean id="regcenterService" class="com.courage.platform.client.rpc.regcenter.RegcenterService">
+    <bean id="regcenterService" class="com.courage.platform.client.rpc.regcenter.NacosRegcenterService">
         <constructor-arg index="0" ref="regcenterConfig"/>
     </bean>
 
