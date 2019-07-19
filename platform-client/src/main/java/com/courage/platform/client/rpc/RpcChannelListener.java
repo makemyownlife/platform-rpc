@@ -1,6 +1,6 @@
 package com.courage.platform.client.rpc;
 
-import com.courage.platform.client.rpc.domain.RpcChannel;
+import com.courage.platform.client.rpc.domain.RpcChannelEntity;
 import com.courage.platform.rpc.remoting.PlatformChannelEventListener;
 import io.netty.channel.Channel;
 import io.netty.util.AttributeKey;
@@ -26,8 +26,8 @@ public class RpcChannelListener implements PlatformChannelEventListener {
         //生成新的链接id
         long channelId = channelIdSequence.incrementAndGet();
         channel.attr(keyChannelId).set(channelId);
-        RpcChannel rpcChannel = new RpcChannel(channelId, channel);
-        RpcChannelManager.addNewChannel(rpcChannel);
+        RpcChannelEntity rpcChannelEntity = new RpcChannelEntity(channelId, channel);
+        RpcChannelManager.addNewChannel(rpcChannelEntity);
     }
 
     @Override

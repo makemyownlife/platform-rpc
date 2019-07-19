@@ -1,4 +1,4 @@
-package com.courage.platform.client.regcenter;
+package com.courage.platform.client.rpc.regcenter;
 
 import com.alibaba.nacos.api.common.Constants;
 import com.alibaba.nacos.api.exception.NacosException;
