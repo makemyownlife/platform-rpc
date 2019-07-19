@@ -65,7 +65,6 @@ public class SpringRpcProducerClient implements ApplicationContextAware, Applica
             //实例化，启动rpc server 并监听端口
             this.rpcProducerClient = new RpcProducerClientImpl(rpcProducerConfig);
             this.rpcProducerClient.start();
-            //TODO 添加到注册中心
             logger.info("begin to instance to nacos server");
             //服务名
             String appName = rpcAppConfig.getAppName();
