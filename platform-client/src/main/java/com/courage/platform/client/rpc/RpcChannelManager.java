@@ -61,8 +61,10 @@ public class RpcChannelManager {
                 } catch (Throwable e) {
                     logger.error("writeAndFlush error:", e);
                 } finally {
-                    //设置最后的心跳时间
-                    rpcChannelEntity.setLastTriggerTime(System.currentTimeMillis());
+                    if (rpcChannelEntity != null) {
+                        //设置最后的心跳时间
+                        rpcChannelEntity.setLastTriggerTime(System.currentTimeMillis());
+                    }
                 }
             }
         }

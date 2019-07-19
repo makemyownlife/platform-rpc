@@ -7,6 +7,7 @@ import com.courage.platform.client.exception.RpcClientConsumerException;
 import com.courage.platform.client.exception.RpcClientException;
 import com.courage.platform.client.rpc.RpcConsumerClient;
 import com.courage.platform.client.rpc.impl.RpcConsumerClientImpl;
+import com.courage.platform.client.rpc.regcenter.NacosRegcenterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,9 +23,9 @@ public class SpringRpcConsumerClient {
 
     private RpcConsumerClient rpcConsumerClient;
 
-    private RegcenterService regcenterService;
+    private NacosRegcenterService regcenterService;
 
-    public SpringRpcConsumerClient(RpcAppConfig rpcAppConfig, RegcenterService regcenterService) throws NacosException {
+    public SpringRpcConsumerClient(RpcAppConfig rpcAppConfig, NacosRegcenterService regcenterService) throws NacosException {
         this.rpcAppConfig = rpcAppConfig;
         this.regcenterService = regcenterService;
         this.rpcConsumerClient = new RpcConsumerClientImpl(this.rpcAppConfig);
