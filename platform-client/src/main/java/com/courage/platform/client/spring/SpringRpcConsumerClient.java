@@ -5,7 +5,6 @@ import com.alibaba.nacos.api.naming.pojo.Instance;
 import com.courage.platform.client.config.RpcAppConfig;
 import com.courage.platform.client.exception.RpcClientConsumerException;
 import com.courage.platform.client.exception.RpcClientException;
-import com.courage.platform.client.regcenter.RegcenterService;
 import com.courage.platform.client.rpc.RpcConsumerClient;
 import com.courage.platform.client.rpc.impl.RpcConsumerClientImpl;
 import org.slf4j.Logger;

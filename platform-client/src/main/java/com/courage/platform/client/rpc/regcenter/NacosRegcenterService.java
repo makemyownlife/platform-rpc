@@ -17,15 +17,15 @@ import java.util.Properties;
  * 注册服务工具类
  * Created by zhangyong on 2019/7/18.
  */
-public class RegcenterService {
+public class NacosRegcenterService {
 
-    private static final Logger logger = LoggerFactory.getLogger(RegcenterService.class);
+    private static final Logger logger = LoggerFactory.getLogger(NacosRegcenterService.class);
 
     private NamingService namingService;
 
     private RpcRegserverConfig rpcRegserverConfig;
 
-    public RegcenterService(RpcRegserverConfig rpcRegserverConfig) throws NacosException {
+    public NacosRegcenterService(RpcRegserverConfig rpcRegserverConfig) throws NacosException {
         this.rpcRegserverConfig = rpcRegserverConfig;
         this.init();
     }
