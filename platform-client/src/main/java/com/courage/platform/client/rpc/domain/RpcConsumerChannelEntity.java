@@ -3,10 +3,13 @@ package com.courage.platform.client.rpc.domain;
 import io.netty.channel.Channel;
 
 /**
- * rpc 链接实体
+ * rpc 消费端链接实体
  * Created by zhangyong on 2019/7/18.
  */
-public class RpcChannelEntity {
+public class RpcConsumerChannelEntity {
+
+    //远程调用地址
+    private String addr;
 
     private Long channelId;
 
@@ -14,7 +17,8 @@ public class RpcChannelEntity {
 
     private Long createTime;
 
-    public RpcChannelEntity(Long channelId, Channel channel) {
+    public RpcConsumerChannelEntity(String addr, Long channelId, Channel channel) {
+        this.addr = addr;
         this.channelId = channelId;
         this.channel = channel;
         this.createTime = System.currentTimeMillis();
@@ -52,6 +56,14 @@ public class RpcChannelEntity {
 
     public void setChannelId(Long channelId) {
         this.channelId = channelId;
+    }
+
+    public String getAddr() {
+        return addr;
+    }
+
+    public void setAddr(String addr) {
+        this.addr = addr;
     }
 
 }
