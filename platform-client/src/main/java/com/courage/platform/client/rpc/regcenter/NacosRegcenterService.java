@@ -6,12 +6,14 @@ import com.alibaba.nacos.api.naming.NamingFactory;
 import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.api.naming.listener.EventListener;
 import com.alibaba.nacos.api.naming.pojo.Instance;
+import com.alibaba.nacos.client.naming.utils.CollectionUtils;
 import com.courage.platform.client.config.RpcRegserverConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 
 /**
  * 注册服务工具类
@@ -61,6 +63,19 @@ public class NacosRegcenterService {
     public Instance queryOneHealthyInstance(String serviceName) throws NacosException {
         Instance instance = namingService.selectOneHealthyInstance(serviceName);
         return instance;
+    }
+
+    public Instance queryOneUnhealthyInstance(String serviceName) throws NacosException {
+        List<Instance> instanceList = namingService.selectInstances(serviceName, false);
+        if (!CollectionUtils.isEmpty(instanceList)) {
+            if (instanceList.size() == 1) {
+                return instanceList.get(0);
+            }
+            int length = instanceList.size();
+            int index = new Random().nextInt(length);
+            return instanceList.get(index);
+        }
+        return null;
     }
 
 }

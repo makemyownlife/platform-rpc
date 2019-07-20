@@ -29,6 +29,7 @@ public class SpringRpcConsumerClient {
         this.rpcAppConfig = rpcAppConfig;
         this.regcenterService = regcenterService;
         this.rpcConsumerClient = new RpcConsumerClientImpl(this.rpcAppConfig);
+        //设置消费者客户端链接管理器 (重连机制)
         logger.info("init spring rpcconsumerclient");
     }
 
@@ -44,6 +45,10 @@ public class SpringRpcConsumerClient {
      */
     public <T> T executeByServiceName(String serviceName, String serviceId, Object... objects) throws RpcClientException, NacosException {
         Instance instance = regcenterService.queryOneHealthyInstance(serviceName);
+        if (instance == null) {
+            logger.warn("cant find one healthy instance of InsntaceName:" + serviceName + " so try to find another instance mybe offline");
+            instance = regcenterService.queryOneUnhealthyInstance(serviceName);
+        }
         if (instance != null) {
             String addr = instance.getIp() + ":" + instance.getPort();
             T result = (T) rpcConsumerClient.execute(addr, serviceId, objects);
