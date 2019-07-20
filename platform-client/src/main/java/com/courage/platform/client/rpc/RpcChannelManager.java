@@ -27,7 +27,7 @@ public class RpcChannelManager {
                 heartBeatCheck();
             }
         });
-        t.setName("heartBeatCheck");
+        t.setName("consumerHeartBeatCheck");
         t.start();
         logger.info("heartBeat 检测线程启动 ");
     }
