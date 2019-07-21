@@ -33,6 +33,7 @@ public class RpcConsumerChannelManager {
 
     public void start() {
         if (running) {
+            logger.warn("链接管理器已经启动了");
             return;
         }
         Thread t = new Thread(new Runnable() {
