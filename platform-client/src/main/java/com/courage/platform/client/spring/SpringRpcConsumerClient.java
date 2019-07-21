@@ -32,8 +32,6 @@ public class SpringRpcConsumerClient {
         this.rpcAppConfig = rpcAppConfig;
         this.regcenterService = regcenterService;
         this.rpcConsumerClient = new RpcConsumerClientImpl(this.rpcAppConfig);
-        //设置消费者客户端链接管理器 (重连机制)
-        this.rpcConsumerChannelManager = new RpcConsumerChannelManager();
         logger.info("init spring rpcconsumerclient");
     }
 

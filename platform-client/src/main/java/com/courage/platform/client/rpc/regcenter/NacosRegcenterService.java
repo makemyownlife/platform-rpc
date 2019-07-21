@@ -61,12 +61,18 @@ public class NacosRegcenterService {
     }
 
     public Instance queryOneHealthyInstance(String serviceName) throws NacosException {
-        Instance instance = namingService.selectOneHealthyInstance(serviceName);
-        return instance;
+        try {
+            Instance instance = namingService.selectOneHealthyInstance(serviceName);
+            return instance;
+        } catch (Exception e) {
+            logger.error("queryOneHealthyInstance error, serviceName:" + serviceName, e);
+        }
+        return null;
     }
 
     //TODO 非健康的还需要继续处理 重点看文件逻辑部分
     public Instance queryOneUnhealthyInstance(String serviceName) throws NacosException {
+        List l = namingService.getSubscribeServices();
         List<Instance> instanceList = namingService.selectInstances(serviceName, false);
         if (!CollectionUtils.isEmpty(instanceList)) {
             if (instanceList.size() == 1) {
