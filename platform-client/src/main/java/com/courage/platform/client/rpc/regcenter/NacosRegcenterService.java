@@ -37,6 +37,7 @@ public class NacosRegcenterService {
         //nacos需要部署在内网机房里面,并且各个环境是隔离的
         properties.setProperty("serverAddr", this.rpcRegserverConfig.getAddress());
         properties.setProperty("namespace", this.rpcRegserverConfig.getNamespace());
+        properties.setProperty("namingLoadCacheAtStart", "true");
         //名字服务
         this.namingService = NamingFactory.createNamingService(properties);
     }
