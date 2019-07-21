@@ -39,7 +39,11 @@ public class RpcConsumerChannelManager {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                heartBeatCheck();
+                try {
+                    heartBeatCheck();
+                } catch (Exception e) {
+                    logger.error("heartBeatCheck error:", e);
+                }
             }
         });
         t.setName("consumerHeartBeatCheck");
