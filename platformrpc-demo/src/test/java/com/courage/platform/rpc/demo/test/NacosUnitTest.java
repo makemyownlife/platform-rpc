@@ -3,8 +3,8 @@ package com.courage.platform.rpc.demo.test;
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingFactory;
 import com.alibaba.nacos.api.naming.NamingService;
-import com.alibaba.nacos.api.naming.pojo.Instance;
 
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -19,16 +19,12 @@ public class NacosUnitTest {
         //nacos需要部署在内网机房里面,并且各个环境是隔离的
         properties.setProperty("serverAddr", serverList);
         properties.setProperty("namespace", "41f0993c-adbb-4832-a0a7-3f01bc804c99");
+        properties.setProperty("namingLoadCacheAtStart", "true");
 
         NamingService namingService = NamingFactory.createNamingService(properties);
-        namingService.registerInstance("nacos.test.3", "11.11.11.11", 8888, "TEST1");
+        List list = namingService.getAllInstances("platformrpc-demo");
 
-        Instance instance = new Instance();
-        instance.setIp("192.168.1.2");
-        instance.setPort(10229);
-        instance.setEphemeral(false);
-        namingService.registerInstance("mytest", instance);
-
+        System.out.println(list);
         Thread.sleep(100000);
     }
 
