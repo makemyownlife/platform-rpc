@@ -1,0 +1,3 @@
+com\courage\platform\rpc\demo\controller\HelloController.class
+com\courage\platform\rpc\demo\remote\DemoRemoteService.class
+com\courage\platform\rpc\demo\MainApplication.class
